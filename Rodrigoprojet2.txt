@@ -1,0 +1,82 @@
+create database Reforma_Predio;
+use Reforma_Predio;
+create table funcao(
+id_funcao integer primary Key auto_increment,
+nome varchar (40) ,
+descricao varchar (80)
+);
+create table colaboradores(
+id_colaborador integer primary Key auto_increment,
+nome varchar (40) ,
+contato integer ,
+salario double ,
+cargo integer,
+endereco integer
+);
+create table enderecos(
+id_endereco integer primary Key auto_increment,
+cep integer ,
+bairro varchar (20) ,
+cidade varchar (10) not null,
+municipio varchar (20) not null
+); 
+create table clientes(
+id_cliente integer primary Key auto_increment,
+nome varchar (40) ,
+contato integer ,
+endereco integer
+);
+create table contratos(
+id_contrato integer not null primary key auto_increment,
+descricao varchar (50)
+);
+create table clintes_contratos(
+contrato integer ,
+cliente integer,
+primary key ( contrato,cliente)
+);
+create table colaboradores_contratos(
+contrato integer ,
+colaboradores integer,
+primary key ( contrato,colaboradores)
+);
+alter table clientes
+add foreign key (endereco) references enderecos (id_endereco);
+alter table clintes_contratos
+add foreign key (contrato) references contratos (id_contrato),
+add foreign key (cliente) references clientes (id_cliente);
+alter table colaboradores_contratos
+add foreign key (contrato) references contratos (id_contrato),
+add foreign key (colaboradores) references colaboradores (id_colaborador);
+alter table colaboradores
+add foreign key (cargo) references funcao (id_funcao),
+add foreign key (endereco) references enderecos (id_endereco);
+insert into enderecos(cep,bairro,cidade,municipio)
+values (213021452,'jardim america','rj','Rio de janeeiro');
+insert into enderecos(cep,bairro,cidade,municipio)
+values (213021453,'jardim america','rj','Rio de janeeiro');
+insert into enderecos(cep,bairro,cidade,municipio)
+values (213021454,'jardim america','rj','Rio de janeeiro');
+insert into enderecos(cep,bairro,cidade,municipio)
+values (213021455,'jardim america','rj','Rio de janeeiro');
+insert into funcao(nome,descricao)
+values ('contrutor','controi');
+insert into funcao(nome,descricao)
+values ('engenheiro','responsavel');
+insert into clientes(nome,contato,endereco)
+values ('mael','171896598',1);
+insert into clientes(nome,contato,endereco)
+values ('rodrigo','33463346',2);
+insert into colaboradores(nome,contato,salario,cargo,endereco)
+values ('miguel','123456789',10000,2,3);
+insert into colaboradores(nome,contato,salario,cargo,endereco)
+values ('bruno','123456789',3.000,1,4);
+insert into contratos(descricao)
+values ('reforma da fachada');
+insert into contratos(descricao)
+values ('vistoria');
+insert into clintes_contratos (contrato,cliente)
+values (1, 1);
+insert into colaboradores_contratos (contrato, colaboradores)
+values (2,2);
+
